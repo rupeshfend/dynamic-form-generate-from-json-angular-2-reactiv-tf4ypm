@@ -1,0 +1,16 @@
+<form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()" novalidate>
+	<ng-container *ngFor="let controls of fields">
+		{{controls.label}}
+		<input [type]="controls.type" [formControlName]="controls.label"/>
+      <ng-container *ngFor="let validation of controls.validations">
+        <span *ngIf="dynamicForm.controls[controls.label].touched && dynamicForm.controls[controls.label].errors">
+          <p *ngIf="dynamicForm.controls[controls.label].errors[validation.name]">
+            {{validation.message}}
+          </p>
+        </span>
+    </ng-container>
+    <br>
+  </ng-container>
+  <br>
+  <input type="submit" [disabled]="!dynamicForm.valid"/>
+</form>
